@@ -1,12 +1,13 @@
 package com.codepath.campgrounds
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
-private const val TAG = "CampgroundDetailActivity"
 const val CAMPGROUND_EXTRA = "CAMPGROUND_EXTRA"
 
 class DetailActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var campgroundLatLongTV: TextView
     private lateinit var campgroundImageIV: ImageView
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -26,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
         campgroundImageIV = findViewById(R.id.campgroundImage)
 
         // TODO: Get the extra from the Intent
-        val campground = intent.getSerializableExtra(CAMPGROUND_EXTRA) as Campground
+        val campground = intent.getSerializableExtra(CAMPGROUND_EXTRA, Campground::class.java) as Campground
 
         // TODO:  Set the name, location, and description information
         campgroundNameTV.text = campground.name
